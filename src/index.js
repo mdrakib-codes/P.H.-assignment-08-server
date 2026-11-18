@@ -5,6 +5,7 @@ const cors = require("cors");
 const express = require("express");
 
 const { getDB } = require("./config/db");
+const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
 
@@ -23,10 +24,7 @@ app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
 });
 
-app.use((error, req, res, next) => {
-  console.error(error);
-  res.status(500).json({ message: "Internal server error" });
-});
+app.use(errorHandler);
 
 async function startServer() {
   await getDB();
