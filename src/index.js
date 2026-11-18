@@ -4,6 +4,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const express = require("express");
 
+const { getDB } = require("./config/db");
+
 const app = express();
 
 app.use(cors({
@@ -26,8 +28,16 @@ app.use((error, req, res, next) => {
   res.status(500).json({ message: "Internal server error" });
 });
 
-const port = process.env.PORT || 5000;
+async function startServer() {
+  await getDB();
 
-app.listen(port, () => {
-  console.log(`StudioSpace API listening on port ${port}`);
+  const port = process.env.PORT || 5000;
+  app.listen(port, () => {
+    console.log(`StudioSpace API listening on port ${port}`);
+  });
+}
+
+startServer().catch((error) => {
+  console.error("Failed to start StudioSpace API:", error);
+  process.exitCode = 1;
 });
