@@ -6,6 +6,7 @@ const express = require("express");
 
 const { getDB } = require("./config/db");
 const errorHandler = require("./middleware/errorHandler");
+const studiosRouter = require("./routes/studios");
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
   res.send("StudioSpace API running");
 });
+
+app.use("/api/studios", studiosRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
