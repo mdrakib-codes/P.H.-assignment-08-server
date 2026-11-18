@@ -9,7 +9,7 @@ function errorHandler(error, req, res, next) {
   const statusCode = Number.isInteger(errorStatus) && errorStatus >= 400 && errorStatus <= 599
     ? errorStatus
     : 500;
-  const message = statusCode === 500
+  const message = statusCode >= 500
     ? "Internal server error"
     : error.message || "Request failed";
 
