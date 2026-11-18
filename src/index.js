@@ -7,6 +7,7 @@ const express = require("express");
 const { getDB } = require("./config/db");
 const errorHandler = require("./middleware/errorHandler");
 const studiosRouter = require("./routes/studios");
+const bookingsRouter = require("./routes/bookings");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/studios", studiosRouter);
+app.use("/api/bookings", bookingsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
