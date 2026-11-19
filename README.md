@@ -64,11 +64,8 @@ Copy `.env.example` to `.env` and set values for your environment. Do not commit
 | `MONGODB_URI` | MongoDB connection URI. The server uses the `studiospace` database. |
 | `JWT_SECRET` | Secret used to verify signed JWTs. Use a long, unique, random value outside local development. |
 | `CLIENT_URL` | Exact web-client origin allowed by CORS, for example `http://localhost:3000`. |
-| `DEV_BYPASS_AUTH` | Set to `true` only for local development to bypass JWT verification. Set to `false` in production. |
 
-When the development bypass is enabled, protected routes accept the `x-dev-email` and `x-dev-name` headers (and use demo identity defaults when omitted). This is not real authentication. **Never enable `DEV_BYPASS_AUTH=true` in production.**
-
-In normal JWT mode, protected routes read a signed token from the `token` cookie. This API does not provide a login route or issue that cookie. The trusted authentication component that sets it must use `httpOnly`, `secure` in production, `sameSite: "lax"`, and `path: "/"`. Browser clients making credentialed requests must send cookies.
+Protected routes read a signed token from the `token` cookie. This API does not provide a login route or issue that cookie. The trusted authentication component that sets it must use `httpOnly`, `secure` in production, `sameSite: "lax"`, and `path: "/"`. Browser clients making credentialed requests must send cookies.
 
 ## Installation and local development
 
@@ -139,7 +136,6 @@ All error responses use JSON in the form `{ "message": "..." }`. Protected endpo
    - `MONGODB_URI`: the deployment's private MongoDB URI.
    - `JWT_SECRET`: a strong, unique secret.
    - `CLIENT_URL`: the deployed web-client origin.
-   - `DEV_BYPASS_AUTH`: `false`.
    - `PORT`: normally omit this on Render; Render supplies it.
 5. Configure the MongoDB provider's network access to permit connections from the deployed service, using the provider's recommended secure configuration.
 6. Deploy and verify the service root URL returns `StudioSpace API running`.
