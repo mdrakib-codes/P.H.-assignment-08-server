@@ -1,8 +1,11 @@
 require("dotenv").config();
 
+const dns = require("node:dns");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const express = require("express");
+
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 const { getDB } = require("./config/db");
 const errorHandler = require("./middleware/errorHandler");

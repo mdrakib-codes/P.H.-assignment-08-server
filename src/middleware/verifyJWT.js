@@ -1,15 +1,6 @@
 const jwt = require("jsonwebtoken");
 
 function verifyJWT(req, res, next) {
-  if (process.env.DEV_BYPASS_AUTH === "true") {
-    // TODO: Remove this development bypass before production.
-    req.user = {
-      email: req.headers["x-dev-email"] || "demo@studiospace.app",
-      name: req.headers["x-dev-name"] || "Demo Host",
-    };
-    return next();
-  }
-
   const token = req.cookies && req.cookies.token;
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
